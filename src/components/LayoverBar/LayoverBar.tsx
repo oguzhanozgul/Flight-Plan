@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Change } from './Change';
 
-import styles from './Search.scss';
+import "../../pages/search/Search.css";
 
 interface Props {
   layovers: string[];
@@ -11,12 +11,12 @@ interface Props {
 export const LayoverBar = ({ layovers }: Props) => {
   return (
 
-    <div className={styles.layoverGroup}>
+    <div className="layoverGroup">
 
       <Change layovers={layovers.length} />
 
-      <div className={styles.layoverNames}>
-        <div className={styles.layoverPlaceholder} />
+      <div className="layoverNames">
+        <div className="layoverPlaceholder" />
         {
           layovers.map(layover =>
             <>
@@ -24,7 +24,7 @@ export const LayoverBar = ({ layovers }: Props) => {
             </>
           )
         }
-        <div className={styles.layoverPlaceholder} />
+        <div className="layoverPlaceholder" />
       </div>
 
     </div >

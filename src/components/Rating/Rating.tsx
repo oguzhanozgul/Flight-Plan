@@ -3,7 +3,7 @@ import * as React from 'react';
 import { IconStar } from '../../assets/icons/IconStar';
 import { IconStarOutline } from '../../assets/icons/IconStarOutline';
 
-import * as styles from './Rating.scss';
+import './Rating.css';
 
 interface Props {
   rating: number;
@@ -14,7 +14,7 @@ export const Rating = ({ rating }: Props) => {
   const emptyStarCount = 5 - fullStarCount;
 
   return (
-    <div className={styles.rating}>
+    <div className="rating">
       {Array.from({ length: fullStarCount }, (_, i) =>
         <IconStar key={i} />
       )}

@@ -5,11 +5,9 @@ import { SearchBar } from '../../components/SearchBar/SearchBar';
 
 export const Home = () => {
   return (
-    <div>
+    <>
       <SearchBar />
-      <div>
-        <AirportGrid />
-      </div>
-    </div>
+      <AirportGrid />
+    </>
   );
 };

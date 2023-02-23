@@ -5,7 +5,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import { IconSearch } from '../../assets/icons/IconSearch';
 
-import styles from './SearchBar.scss';
+import './SearchBar.css';
 
 export const SearchButton = () => {
   const [enabled, setEnabled] = React.useState<boolean>(false);
@@ -25,7 +25,7 @@ export const SearchButton = () => {
   };
 
   return (
-    <button className={styles.searchButton} title="Search" onClick={handleSearchClick}>
+    <button className="searchButton" title="Search" onClick={handleSearchClick}>
       <IconSearch />
     </button>
   );

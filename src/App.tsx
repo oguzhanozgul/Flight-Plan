@@ -1,40 +1,25 @@
 import { useState } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Provider as ReduxProvider } from 'react-redux';
+import { Route, Routes } from 'react-router-dom'
 
 import './App.css'
 import { Home } from './pages/home/Home'
 import { Search } from './pages/search/Search'
-import { store } from './store/store';
+import { useAirportData } from './utils/useAirportData';
+import { useConnectionsData } from './utils/useConnectionsData';
 
 function App() {
   const [count, setCount] = useState(0)
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnMount: true,
-        refetchOnReconnect: false,
-        refetchOnWindowFocus: false,
-        retry: false,
-      },
-    },
-  });
+  useAirportData();
+  useConnectionsData();
 
   return (
-    <BrowserRouter>
-      <ReduxProvider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/*" element={<Home />} />
-          </Routes>
-        </QueryClientProvider>
-      </ReduxProvider>
-    </BrowserRouter>
+    <Routes>
+      <Route index element={<Home />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/search" element={<Search />} />
+      <Route path="/*" element={<Home />} />
+    </Routes>
   )
 }
 

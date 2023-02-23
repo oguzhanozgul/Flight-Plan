@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../store/hooks';
-import { AirportData } from '../../types/types';
+import { AirportData, Airports } from '../../types/types';
 import { findAllPaths } from '../../utils/connectionsGraph';
 import { airportIdToCode } from '../../utils/utils';
 import { IconLeftArrow } from '../../assets/icons/IconLeftArrow';
@@ -11,10 +11,10 @@ import Spinner from '../../components/Spinner/Spinner';
 
 import { Banner } from '../../components/Banner/Banner';
 import { FlightImage } from '../../components/FlightImage/FlightImage';
-import * as styles from './Search.scss';
+import './Search.css';
 
 export const Search = () => {
-  const airports = useAppSelector(state => state.airports.airports);
+  const airports = useAppSelector<Airports>(state => state.airports.airports);
   const airportsLoadingStatus = useAppSelector(state => state.airports.loadingState);
   const connectionsLoadingStatus = useAppSelector(state => state.connections.loadingState);
   const connections = useAppSelector(state => state.connections.connections);
@@ -53,30 +53,30 @@ export const Search = () => {
     <>
       {airportFrom && airportTo ?
         <div>
-          <button className={styles.backButton} onClick={handleBackButtonClick} >
+          <button className="backButton" onClick={handleBackButtonClick} >
             <IconLeftArrow />
             Back
           </button>
 
-          <div className={styles.background}>
-            <div className={styles.overlay} />
+          <div className="background">
+            <div className="overlay" />
             <img src={airportFrom.images.full} alt="Airport" />
             <img src={airportTo.images.full} alt="Airport" />
           </div>
 
-          <div className={styles.content}>
-            <div className={styles.header}>
+          <div className="content">
+            <div className="header">
 
-              <div className={styles.airportDetails}>
+              <div className="airportDetails">
                 <h2 style={{ height: '48px' }}>{airportFrom.country}</h2>
                 <p style={{ height: '30px' }}>{airportFrom.name}</p>
               </div>
 
-              <div className={styles.flightImage}>
+              <div className="flightImage">
                 <FlightImage />
               </div>
 
-              <div className={styles.airportDetails}>
+              <div className="airportDetails">
                 <h2 style={{ height: '48px' }}>{airportTo.country}</h2>
                 <p style={{ height: '30px' }}>{airportTo.name}</p>
               </div>

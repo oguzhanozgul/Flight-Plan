@@ -1,0 +1,15 @@
+.airportGrid {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  width: 520px;
+}
+
+.airportGrid :hover .content {
+    transform: translateY(0);
+  }

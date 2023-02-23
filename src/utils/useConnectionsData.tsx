@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { Connections } from 'src/types/types';
+import { Connections } from '../types/types';
 
 import { connectionsLoaded, connectionsLoading, connectionsLoadingFailed } from '../store/connectionsSlice';
 import { useAppDispatch } from '../store/hooks';

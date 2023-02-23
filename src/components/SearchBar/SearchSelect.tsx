@@ -5,11 +5,11 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectedAirportChanged } from '../../store/selectionBoxesSlice';
-import { BaseAirport } from '../../types/types';
+import { Airports, BaseAirport } from '../../types/types';
 import { parseAirportName } from '../../utils/utils';
 import { IconChevronRight } from '../../assets/icons/IconChevronRight';
 
-import styles from './SearchBar.scss';
+import './SearchBar.css';
 import { SearchDropDown } from './SearchDropDown';
 
 interface Props {
@@ -23,7 +23,7 @@ export const SearchSelect = ({ label, type }: Props) => {
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false); // state variable to decide if we should show the drop down
   const [filteredOptions, setFilteredOptions] = useState<BaseAirport[]>([]); // airports which contain the input value
   const [allOptions, setAllOptions] = useState<BaseAirport[]>([]); // all airports
-  const airports = useAppSelector(state => state.airports.airports); // all airports data from app state
+  const airports = useAppSelector<Airports>(state => state.airports.airports); // all airports data from app state
   const loadingState = useAppSelector(state => state.airports.loadingState); // are airports loaded (was API call successful)
   const selectedAirport = useAppSelector(state => state.selectedAirports[type]);
 
@@ -107,13 +107,13 @@ export const SearchSelect = ({ label, type }: Props) => {
   };
 
   return (
-    <div className={styles.searchSelect} ref={ref} onClick={showDropDown}>
-      <div className={styles.searchSelectRows}>
-        <div className={styles.searchSelectLabel}>
+    <div className="searchSelect" ref={ref} onClick={showDropDown}>
+      <div className="searchSelectRows">
+        <div className="searchSelectLabel">
           {label}
         </div>
         <input
-          className={styles.searchSelectText}
+          className="searchSelectText"
           type="text"
           id="fname"
           name="fname"
@@ -122,7 +122,7 @@ export const SearchSelect = ({ label, type }: Props) => {
           onChange={handleInputChange}
         />
       </div>
-      <div className={styles.searchSelectIcon}>
+      <div className="searchSelectIcon">
         <IconChevronRight />
       </div>
       {/* A better way which makes more sense is to use a ready made dropdown with search capabilities, particularly from a design

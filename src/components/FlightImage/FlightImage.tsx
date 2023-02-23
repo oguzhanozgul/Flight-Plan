@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import * as React from 'react';
 
-import flightImage from '../../Images/FlightImage.svg';
+import flightImage from '../../assets/images/FlightImage.svg';
 
 export const FlightImage = () => {
   return (

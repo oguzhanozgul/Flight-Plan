@@ -1,5 +1,3 @@
-@import '../../styles/variables.scss';
-
 .airport {
   position: relative;
   display: flex;
@@ -8,15 +6,10 @@
   min-width: 480px;
   overflow: hidden;
   border-radius: 16px;
+}
 
-  @media only screen and (min-width: $mediaMedium) {
-    width: 480px;
-    min-width: 480px;
-  }
-
-  &:hover .content {
+.airport:hover .content {
     transform: translateY(0);
-  }
 }
 
 .image {
@@ -59,18 +52,19 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
+}
 
-  h2 {
+.basicInfo.h2 {
     font-size: 32px;
     font-weight: 700;
   }
 
-  p {
+.basicInfo.p {
     font-size: 24px;
     margin-bottom: 4px;
     font-weight: 600;
   }
-}
+
 
 .goButton {
   height: 38px;

@@ -7,7 +7,7 @@ import { BaseAirport } from '../../types/types';
 import { IconAirplane } from '../../assets/icons/IconAirplane';
 import { IconPinDrop } from '../../assets/icons/IconPinDrop';
 
-import styles from './SearchBar.scss';
+import './SearchBar.css';
 
 interface Props {
   option: BaseAirport;
@@ -23,8 +23,8 @@ export const SearchDropDownOption = ({ option, setSelection }: Props) => {
 
   return (
 
-    <div className={`${styles.dropDownOption} ${option.id === -1 ? styles.firstDefaultOption : ''}`} onClick={handleClick} >
-      <div className={styles.dropDownIcon}>
+    <div className={`dropDownOption ${option.id === -1 ? "firstDefaultOption" : ''}`} onClick={handleClick} >
+      <div className="dropDownIcon">
         {option.id === -1 ? <IconAirplane /> : <IconPinDrop />}
       </div>
       {option.name}
