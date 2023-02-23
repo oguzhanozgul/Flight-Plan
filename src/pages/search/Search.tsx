@@ -2,15 +2,15 @@
 import * as React from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { useAppSelector } from '../../../store/hooks';
-import { AirportData } from '../../../types/types';
-import { findAllPaths } from '../../../utils/connectionsGraph';
-import { airportIdToCode } from '../../../utils/utils';
-import { IconLeftArrow } from '../../Images/IconLeftArrow';
-import Spinner from '../../Spinner/Spinner';
+import { useAppSelector } from '../../store/hooks';
+import { AirportData } from '../../types/types';
+import { findAllPaths } from '../../utils/connectionsGraph';
+import { airportIdToCode } from '../../utils/utils';
+import { IconLeftArrow } from '../../assets/icons/IconLeftArrow';
+import Spinner from '../../components/Spinner/Spinner';
 
-import { Banner } from './Banner';
-import { FlightImage } from './FlightImage';
+import { Banner } from '../../components/Banner/Banner';
+import { FlightImage } from '../../components/FlightImage/FlightImage';
 import * as styles from './Search.scss';
 
 export const Search = () => {

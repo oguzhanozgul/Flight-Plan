@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { AirportGrid } from '../../AirportGrid';
-import { SearchBar } from '../../SearchBar';
+import { AirportGrid } from '../../components/AirportGrid/AirportGrid';
+import { SearchBar } from '../../components/SearchBar/SearchBar';
 
 export const Home = () => {
   return (
