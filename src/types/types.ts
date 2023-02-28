@@ -8,15 +8,21 @@ export interface BaseAirport {
 
 export interface AirportData extends BaseAirport {
   code: string;
+  city: string;
   country: string;
   images: {
-    thumb: string;
     small: string;
     full: string;
   };
   averageRating: number;
 }
 
-export type Connections = {
-  [key: number]: number[];
+export type Connection = {
+  [key: string]: number[];
+}
+
+export type ServiceResponse<T> = {
+  Data: T;
+  Success: boolean;
+  Message: string;
 }

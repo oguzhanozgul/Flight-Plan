@@ -22,7 +22,7 @@ export function useAirportData() {
     isSuccess,
   } = useQuery<Airports>({
     queryFn: async () => {
-      const { data } = await apiClient.get('airports/');
+      const { data } = await apiClient.get('airport/');
 
       return data;
     },
@@ -31,9 +31,8 @@ export function useAirportData() {
   });
 
   return useEffect(() => {
-    // Upon successful fetch, we populate the state (which is persisted between page refreshes)
-    // which we will use app-wide since we only have 1 related endpoint. We wouldn't do this
-    // in a production application.
+    // Upon successful fetch, we populate the state which we will use app-wide since we only
+    // have 1 related endpoint. We wouldn't do this in a production application.
     if (isSuccess) {
       dispatch(
         airportsLoaded({
@@ -41,7 +40,7 @@ export function useAirportData() {
         }),
       );
     }
-    // Handle error (I noticed I get 500 from the API often)
+    // Handle errors
     if (isError) {
       dispatch(
         airportsLoadingFailed(),

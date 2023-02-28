@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-// Don't hardcode secrets
+const apiUrlDev = import.meta.env.VITE_API_URL_DEV;
+const apiUrlProd = import.meta.env.VITE_API_URL_PROD;
+
 const apiClient = axios.create({
-  baseURL: 'https://centra-flights-api.herokuapp.com/',
-  headers: {
-    'auth': 'PprxhenEbxzmL7YrOuRZ0EqSwpCzcqU2',
-  },
+  baseURL: apiUrlDev,
 });
 
 export default apiClient;

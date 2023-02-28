@@ -1,6 +1,7 @@
 /* eslint-disable functional/immutable-data */
 import { Airports, Connections } from '../types/types';
 
+// LEGACY: Code used to parse the airport name with the older version of the API, not used anymore
 export const parseAirportName = (rawName: string): string => {
   // This is not a perfect solution see Tel-Aviv for example.
   // Perfect solution is to have the API response normalized: instead of 1 field for City and Airport Name, which is
@@ -17,6 +18,7 @@ export const parseAirportName = (rawName: string): string => {
   return `${cityName}${cityName ? ', ' : ''}${airportName}`;
 };
 
+// LEGACY: Code used to parse the connections with the older version of the API, not used anymore
 export const parseConnections = (connString: string): Connections => {
   const retVal: Connections = {};
   connString.split(/\r?\n/).forEach(connection => {
