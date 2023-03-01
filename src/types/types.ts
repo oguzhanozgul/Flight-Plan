@@ -1,6 +1,3 @@
-
-export type Airports = AirportData[];
-
 export interface BaseAirport {
   name: string;
   id: number;
@@ -22,7 +19,7 @@ export type Connection = {
 }
 
 export type ServiceResponse<T> = {
-  Data: T;
-  Success: boolean;
-  Message: string;
+  data: T;
+  success: boolean;
+  message: string;
 }

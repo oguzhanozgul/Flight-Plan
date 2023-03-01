@@ -5,7 +5,7 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectedAirportChanged } from '../../store/selectionBoxesSlice';
-import { Airports, BaseAirport } from '../../types/types';
+import { AirportData, BaseAirport } from '../../types/types';
 import { parseAirportName } from '../../utils/utils';
 import { IconChevronRight } from '../../assets/icons/IconChevronRight';
 
@@ -23,7 +23,7 @@ export const SearchSelect = ({ label, type }: Props) => {
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false); // state variable to decide if we should show the drop down
   const [filteredOptions, setFilteredOptions] = useState<BaseAirport[]>([]); // airports which contain the input value
   const [allOptions, setAllOptions] = useState<BaseAirport[]>([]); // all airports
-  const airports = useAppSelector<Airports>(state => state.airports.airports); // all airports data from app state
+  const airports = useAppSelector<AirportData[]>(state => state.airports.airports); // all airports data from app state
   const loadingState = useAppSelector(state => state.airports.loadingState); // are airports loaded (was API call successful)
   const selectedAirport = useAppSelector(state => state.selectedAirports[type]);
 
@@ -88,7 +88,11 @@ export const SearchSelect = ({ label, type }: Props) => {
   // Load human readable name of the dropdown option and the corresponding airport id
   useEffect(() => {
     if (loadingState === 'success') {
-      setAllOptions(airports.map(airport => { return { id: airport.id, name: parseAirportName(airport.name) }; }));
+      setAllOptions(airports.map(airport => {
+        return {
+          id: airport.id, name: `${airport.name}, ${airport.city}, ${airport.country}`
+        };
+      }));
     }
   }, [loadingState]);
 
@@ -101,8 +105,8 @@ export const SearchSelect = ({ label, type }: Props) => {
 
     return [
       { id: -1, name: 'Popular airports nearby' },
-      { id: 679, name: 'Warsaw Chopin Airport' },
-      { id: 1587, name: 'Prague, Václav Havel Airp.' },
+      { id: 679, name: 'Warsaw Chopin Airport, Warsaw, Poland' },
+      { id: 1587, name: 'Václav Havel Airport, Prague, Czech Republic' },
     ];
   };
 

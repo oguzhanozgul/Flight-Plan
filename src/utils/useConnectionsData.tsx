@@ -32,10 +32,9 @@ export function useConnectionsData() {
     // Upon successful fetch, we populate the state which we will use app-wide since we only
     // have 1 related endpoint. We wouldn't do this in a production application.
     if (isSuccess) {
-      const connections: Connection[] = connectionsData.Data;
       dispatch(
         connectionsLoaded({
-          connections,
+          connections: connectionsData.data,
         }),
       );
     }

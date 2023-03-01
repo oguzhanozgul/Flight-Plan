@@ -1,10 +1,10 @@
 // Modifying immutable data is allowed here since redux toolkit internally uses immer
 /* eslint-disable functional/immutable-data */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Airports } from 'src/types/types';
+import { AirportData } from '../types/types';
 
 interface AirportsState {
-  airports: Airports;
+  airports: AirportData[];
   loadingState: 'success' | 'fail' | 'pending';
 }
 
@@ -22,19 +22,19 @@ export const airportsSlice = createSlice({
     airportsLoaded: (
       state: AirportsState,
       action: PayloadAction<{
-        airports: Airports;
+        airports: AirportData[];
       }>,
     ) => {
       state.airports = action.payload.airports.map(airport => airport);
       state.loadingState = 'success';
     },
-    // Action to dispatch while the GET /Airports query is running.
+    // Action to dispatch while the GET /Airport query is running.
     airportsLoading: (
       state: AirportsState,
     ) => {
       state.loadingState = 'pending';
     },
-    // Action to dispatch if the GET /Airports query fails.
+    // Action to dispatch if the GET /Airport query fails.
     airportsLoadingFailed: (
       state: AirportsState,
     ) => {

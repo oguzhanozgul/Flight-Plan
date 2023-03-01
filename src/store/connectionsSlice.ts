@@ -2,15 +2,15 @@
 /* eslint-disable functional/immutable-data */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Connections } from '../types/types';
+import { Connection } from '../types/types';
 
 interface ConnectionsState {
-  connections: Connections;
+  connections: Connection[];
   loadingState: 'success' | 'fail' | 'pending';
 }
 
 const initialState: ConnectionsState = {
-  connections: {},
+  connections: [],
   loadingState: 'pending',
 };
 
@@ -23,7 +23,7 @@ export const connectionsSlice = createSlice({
     connectionsLoaded: (
       state: ConnectionsState,
       action: PayloadAction<{
-        connections: Connections;
+        connections: Connection[];
       }>,
     ) => {
       state.connections = action.payload.connections;

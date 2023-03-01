@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { airportsLoaded, airportsLoading, airportsLoadingFailed } from '../store/airportsSlice';
 import { useAppDispatch } from '../store/hooks';
-import { Airports } from '../types/types';
+import { AirportData, ServiceResponse } from '../types/types';
 import apiClient from '../utils/apiClient';
 
 export function useAirportData() {
@@ -20,7 +20,7 @@ export function useAirportData() {
     isLoading,
     isError,
     isSuccess,
-  } = useQuery<Airports>({
+  } = useQuery<ServiceResponse<AirportData[]>>({
     queryFn: async () => {
       const { data } = await apiClient.get('airport/');
 
@@ -36,7 +36,7 @@ export function useAirportData() {
     if (isSuccess) {
       dispatch(
         airportsLoaded({
-          airports: airportData,
+          airports: airportData.data,
         }),
       );
     }
