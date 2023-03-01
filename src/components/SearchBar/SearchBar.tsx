@@ -1,14 +1,13 @@
-import * as React from 'react';
-
 import './SearchBar.css';
 import { SearchButton } from './SearchButton';
 import { SearchSelect } from './SearchSelect';
+import { SearchAutocomplete } from './SearchAutocomplete';
 
 export const SearchBar = () => {
   return (
     <div className="searchBar">
-      <SearchSelect label="From" type="from" />
-      <SearchSelect label="To" type="to" />
+      <SearchAutocomplete label="From" type="from" />
+      <SearchAutocomplete label="To" type="to" />
       <SearchButton />
     </div>
   );

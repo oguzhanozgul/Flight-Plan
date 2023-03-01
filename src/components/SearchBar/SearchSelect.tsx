@@ -1,7 +1,6 @@
 /* eslint-disable functional/immutable-data */
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { useDetectClickOutside } from 'react-detect-click-outside';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectedAirportChanged } from '../../store/selectionBoxesSlice';
@@ -32,7 +31,6 @@ export const SearchSelect = ({ label, type }: Props) => {
   const handleClickOutside = () => {
     hideDropDown();
   };
-  const ref = useDetectClickOutside({ onTriggered: handleClickOutside });
 
   const handleInputChange = useCallback((event: React.FormEvent<HTMLInputElement>) => {
     setInputValue(event.currentTarget.value);
@@ -88,30 +86,23 @@ export const SearchSelect = ({ label, type }: Props) => {
   // Load human readable name of the dropdown option and the corresponding airport id
   useEffect(() => {
     if (loadingState === 'success') {
-      setAllOptions(airports.map(airport => {
+      const allOptions = airports.map(airport => {
         return {
           id: airport.id, name: `${airport.name}, ${airport.city}, ${airport.country}`
         };
-      }));
+      });
+      setAllOptions(allOptions);
+      setFilteredOptions(allOptions);
     }
   }, [loadingState]);
 
   const getOptionsForDropdown = (): BaseAirport[] => {
     if (loadingState !== 'success') { return [{ id: -1, name: 'Loading airports...' }]; }
-
-    if (searching) {
-      return filteredOptions;
-    }
-
-    return [
-      { id: -1, name: 'Popular airports nearby' },
-      { id: 679, name: 'Warsaw Chopin Airport, Warsaw, Poland' },
-      { id: 1587, name: 'Václav Havel Airport, Prague, Czech Republic' },
-    ];
+    return filteredOptions;
   };
 
   return (
-    <div className="searchSelect" ref={ref} onClick={showDropDown}>
+    <div className="searchSelect" onClick={showDropDown}>
       <div className="searchSelectRows">
         <div className="searchSelectLabel">
           {label}
