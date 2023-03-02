@@ -6,6 +6,7 @@ import { useAppSelector } from '../../store/hooks';
 import { IconSearch } from '../../assets/icons/IconSearch';
 
 import './SearchBar.css';
+import { Button } from '@mantine/core';
 
 export const SearchButton = () => {
   const [enabled, setEnabled] = React.useState<boolean>(false);
@@ -25,8 +26,8 @@ export const SearchButton = () => {
   };
 
   return (
-    <button className="searchButton" title="Search" onClick={handleSearchClick}>
+    <Button color="#E46846" onClick={handleSearchClick}>
       <IconSearch />
-    </button>
+    </Button>
   );
 };

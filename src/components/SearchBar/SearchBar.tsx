@@ -1,14 +1,13 @@
-import './SearchBar.css';
 import { SearchButton } from './SearchButton';
-import { SearchSelect } from './SearchSelect';
 import { SearchAutocomplete } from './SearchAutocomplete';
+import { Group } from '@mantine/core';
 
 export const SearchBar = () => {
   return (
-    <div className="searchBar">
+    <Group>
       <SearchAutocomplete label="From" type="from" />
       <SearchAutocomplete label="To" type="to" />
       <SearchButton />
-    </div>
+    </Group>
   );
 };

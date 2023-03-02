@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import App from './App'
 import './index.css'
 import { store } from './store/store';
+import MantineThemeProvider from './styles/MantineThemeProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,7 +24,7 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineThemeProvider>
       <BrowserRouter>
         <ReduxProvider store={store}>
           <QueryClientProvider client={queryClient}>
@@ -33,6 +34,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           </QueryClientProvider>
         </ReduxProvider>
       </BrowserRouter>
-    </MantineProvider>
+    </MantineThemeProvider>
   </React.StrictMode>,
 )

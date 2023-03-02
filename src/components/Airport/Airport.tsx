@@ -7,6 +7,8 @@ import { airportIdToCode } from '../../utils/utils';
 
 import './Airport.css';
 import { Rating } from '../Rating/Rating';
+import { Button } from '@mantine/core';
+import { apiUrl } from '../../utils/apiUrl';
 
 interface Props {
   airportData: AirportData;
@@ -41,7 +43,7 @@ export const Airport = ({ airportData }: Props) => {
 
   return (
     <div className="airport">
-      <img className="image" src={airportData.images.small} alt={`${airportData.name} Airport in ${airportData.country}`} />
+      <img className="image" src={`${apiUrl()}${airportData.images.small}`} alt={`${airportData.name} Airport in ${airportData.country}`} />
       <div className="overlay" />
       <div className="content">
         <div className="basicInfo" style={{ height: '34px', marginBottom: '4px' }}>
@@ -57,10 +59,12 @@ export const Airport = ({ airportData }: Props) => {
         <div className="connections">
           {myConnections().map((connectionCode, index) => <div key={connectionCode}>{index !== 0 ? ' | ' : ''}{connectionCode} </div>)}
         </div>
-        <div className="buttons">
-          <button className="goButton" onClick={handleStartFromClick}>Start from</button>
-          <button className="goButton" onClick={handleGoToClick}>Go to</button>
-        </div>
+        <Button color="#E46846" onClick={handleStartFromClick}>
+          Start from
+        </Button>
+        <Button color="#E46846" onClick={handleGoToClick}>
+          Go to
+        </Button>
       </div>
     </div>
   );

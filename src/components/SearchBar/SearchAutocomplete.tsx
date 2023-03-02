@@ -50,27 +50,30 @@ export const SearchAutocomplete = ({ label, type }: Props) => {
     ({ value, ...others }: SelectItemProps, ref) => (
       <div ref={ref} {...others}>
         <Group noWrap>
-          <Box sx={{ w: "24px", h: "24px" }}>
-
+          <Box w="24px" h="24px">
             <IconPinDrop />
           </Box>
           <Text>{value}</Text>
         </Group>
-      </div>
+      </div >
     )
   );
 
   return (
     <>
-      <Autocomplete
-        label={label}
-        placeholder="Start typing to search..."
-        itemComponent={AutoCompleteItem}
-        data={loadingState === "success" ? airportOptions.map(option => ({ ...option, value: option.name })) : [{ value: "Loading airports..." }]}
-        filter={(value, item) =>
-          item.value.toLowerCase().includes(value.toLowerCase().trim())
-        }
-      />
+      <Group spacing={8}>
+        <Text>{label}</Text>
+        <Autocomplete
+          w="400px"
+          nothingFound="No results..."
+          placeholder="Start typing to search..."
+          itemComponent={AutoCompleteItem}
+          data={loadingState === "success" ? airportOptions.map(option => ({ ...option, value: option.name })) : [{ value: "Loading airports..." }]}
+          filter={(value, item) =>
+            item.value.toLowerCase().includes(value.toLowerCase().trim())
+          }
+        />
+      </Group>
     </>
   );
 };
