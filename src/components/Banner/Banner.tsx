@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-import { LayoverBar } from '../LayoverBar/LayoverBar';
+import { LayoverBar } from "../LayoverBar/LayoverBar";
 import "../../pages/search/Search.css";
 
 interface Props {
@@ -9,7 +7,7 @@ interface Props {
   layovers: string[];
 }
 
-export const Banner = ({ from, to, layovers }: Props) => {
+export function Banner({ from, to, layovers }: Props) {
   const changesCount = layovers.length;
 
   return (
@@ -24,10 +22,12 @@ export const Banner = ({ from, to, layovers }: Props) => {
       </div>
 
       <div className="summary">
-        <span>{changesCount === 0 ? 'Direct' : `${changesCount} change${changesCount > 1 ? 's' : ''}`}</span>
+        <span>{changesCount === 0 ? "Direct" : `${changesCount} change${changesCount > 1 ? "s" : ""}`}</span>
         <button className="goButton">Go!</button>
       </div>
 
     </div>
   );
-};
+}
+
+export default Banner;

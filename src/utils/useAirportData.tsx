@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
-import { useQuery } from 'react-query';
+import apiClient from "./apiClient";
+import { airportsLoaded, airportsLoading, airportsLoadingFailed } from "../store/airportsSlice";
+import { useAppDispatch } from "../store/hooks";
+import { AirportData, ServiceResponse } from "../types/types";
+import { useEffect } from "react";
+import { useQuery } from "react-query";
 
-import { airportsLoaded, airportsLoading, airportsLoadingFailed } from '../store/airportsSlice';
-import { useAppDispatch } from '../store/hooks';
-import { AirportData, ServiceResponse } from '../types/types';
-import apiClient from '../utils/apiClient';
-
-export function useAirportData() {
+export const useAirportData = () => {
   const dispatch = useAppDispatch();
 
   // We fetch everything below. In a prod. application, we would either paginate or
@@ -22,11 +21,11 @@ export function useAirportData() {
     isSuccess,
   } = useQuery<ServiceResponse<AirportData[]>>({
     queryFn: async () => {
-      const { data } = await apiClient.get('airport/');
+      const { data } = await apiClient.get("airport/");
 
       return data;
     },
-    queryKey: ['airport-data'],
+    queryKey: ["airport-data"],
     retry: 5,
   });
 
@@ -52,4 +51,6 @@ export function useAirportData() {
       );
     }
   }, [isSuccess, isError, isLoading]);
-}
+};
+
+export default useAirportData;

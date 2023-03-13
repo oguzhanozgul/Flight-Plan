@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-import { Change } from './Change';
+import { Change } from "./Change";
 
 import "../../pages/search/Search.css";
 
@@ -8,7 +6,7 @@ interface Props {
   layovers: string[];
 }
 
-export const LayoverBar = ({ layovers }: Props) => {
+export function LayoverBar({ layovers }: Props) {
   return (
 
     <div className="layoverGroup">
@@ -18,15 +16,15 @@ export const LayoverBar = ({ layovers }: Props) => {
       <div className="layoverNames">
         <div className="layoverPlaceholder" />
         {
-          layovers.map(layover =>
-            <>
-              <span key={layover}>{layover}</span>
-            </>
-          )
+          layovers.map((layover) => (
+            <span key={layover}>{layover}</span>
+          ))
         }
         <div className="layoverPlaceholder" />
       </div>
 
-    </div >
+    </div>
   );
-};
+}
+
+export default LayoverBar;

@@ -1,17 +1,16 @@
 /* eslint-disable max-len */
-import * as React from 'react';
+import change0 from "../../assets/images/Change0.svg";
+import change1 from "../../assets/images/Change1.svg";
+import change2 from "../../assets/images/Change2.svg";
+import change3 from "../../assets/images/Change3.svg";
+import change4 from "../../assets/images/Change4.svg";
+import change5 from "../../assets/images/Change5.svg";
 
-import change0 from '../../assets/images/Change0.svg';
-import change1 from '../../assets/images/Change1.svg';
-import change2 from '../../assets/images/Change2.svg';
-import change3 from '../../assets/images/Change3.svg';
-import change4 from '../../assets/images/Change4.svg';
-import change5 from '../../assets/images/Change5.svg';
 interface Props {
   layovers: number;
 }
 
-export const Change = ({ layovers }: Props) => {
+export function Change({ layovers }: Props) {
   switch (layovers) {
     case 0:
       return (
@@ -45,4 +44,6 @@ export const Change = ({ layovers }: Props) => {
   return (
     <img src={change0} width="100%" height="auto" alt="direct flight" />
   );
-};
+}
+
+export default Change;

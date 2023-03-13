@@ -1,30 +1,30 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import * as React from 'react';
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import * as React from "react";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 
-import { useAppSelector } from '../../store/hooks';
-import { AirportData, Airports } from '../../types/types';
-import { findAllPaths } from '../../utils/connectionsGraph';
-import { airportIdToCode } from '../../utils/utils';
-import { IconLeftArrow } from '../../assets/icons/IconLeftArrow';
-import Spinner from '../../components/Spinner/Spinner';
+import { useAppSelector } from "../../store/hooks";
+import { AirportData, Airports } from "../../types/types";
+import { findAllPaths } from "../../utils/connectionsGraph";
+import { airportIdToCode } from "../../utils/utils";
+import { IconLeftArrow } from "../../assets/icons/IconLeftArrow";
+import Spinner from "../../components/Spinner/Spinner";
 
-import { Banner } from '../../components/Banner/Banner';
-import { FlightImage } from '../../components/FlightImage/FlightImage';
-import './Search.css';
+import { Banner } from "../../components/Banner/Banner";
+import { FlightImage } from "../../components/FlightImage/FlightImage";
+import "./Search.css";
 
-export const Search = () => {
-  const airports = useAppSelector<Airports>(state => state.airports.airports);
-  const airportsLoadingStatus = useAppSelector(state => state.airports.loadingState);
-  const connectionsLoadingStatus = useAppSelector(state => state.connections.loadingState);
-  const connections = useAppSelector(state => state.connections.connections);
+export function Search() {
+  const airports = useAppSelector<Airports>((state) => state.airports.airports);
+  const airportsLoadingStatus = useAppSelector((state) => state.airports.loadingState);
+  const connectionsLoadingStatus = useAppSelector((state) => state.connections.loadingState);
+  const connections = useAppSelector((state) => state.connections.connections);
   const [searchParams, _setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  if (airportsLoadingStatus === 'pending' || connectionsLoadingStatus === 'pending') {
+  if (airportsLoadingStatus === "pending" || connectionsLoadingStatus === "pending") {
     return <Spinner />;
   }
-  if (airportsLoadingStatus === 'fail' || connectionsLoadingStatus === 'fail') {
+  if (airportsLoadingStatus === "fail" || connectionsLoadingStatus === "fail") {
     return (
       <>Error loading data.</>
     );
@@ -32,8 +32,8 @@ export const Search = () => {
 
   const handleBackButtonClick = () => navigate(-1);
 
-  const airportFrom: AirportData | undefined = airports.find(airport => airport.id === parseInt(searchParams.get('from')!));
-  const airportTo: AirportData | undefined = airports.find(airport => airport.id === parseInt(searchParams.get('to')!));
+  const airportFrom: AirportData | undefined = airports.find((airport) => airport.id === parseInt(searchParams.get("from")!));
+  const airportTo: AirportData | undefined = airports.find((airport) => airport.id === parseInt(searchParams.get("to")!));
 
   let topSortedLayoversByCode: string[][] = [];
   if (airportFrom && airportTo) {
@@ -45,59 +45,60 @@ export const Search = () => {
     const allPathsSorted = [...allPaths].sort((a, b) => (a.length - b.length));
 
     const topSortedPathsById: number[][] = allPathsSorted.slice(0, minNumberOfSearchResults);
-    const topSortedPathsByCode: string[][] = topSortedPathsById.map(resultId => resultId.map(id => airportIdToCode(id, airports)));
-    topSortedLayoversByCode = topSortedPathsByCode.map(pathByCode => pathByCode.slice(1, pathByCode.length - 1));
+    const topSortedPathsByCode: string[][] = topSortedPathsById.map((resultId) => resultId.map((id) => airportIdToCode(id, airports)));
+    topSortedLayoversByCode = topSortedPathsByCode.map((pathByCode) => pathByCode.slice(1, pathByCode.length - 1));
   }
 
   return (
     <>
-      {airportFrom && airportTo ?
-        <div>
-          <button className="backButton" onClick={handleBackButtonClick} >
-            <IconLeftArrow />
-            Back
-          </button>
+      {airportFrom && airportTo
+        ? (
+          <div>
+            <button className="backButton" onClick={handleBackButtonClick}>
+              <IconLeftArrow />
+              Back
+            </button>
 
-          <div className="background">
-            <div className="overlay" />
-            <img src={airportFrom.images.full} alt="Airport" />
-            <img src={airportTo.images.full} alt="Airport" />
-          </div>
-
-          <div className="content">
-            <div className="header">
-
-              <div className="airportDetails">
-                <h2 style={{ height: '48px' }}>{airportFrom.country}</h2>
-                <p style={{ height: '30px' }}>{airportFrom.name}</p>
-              </div>
-
-              <div className="flightImage">
-                <FlightImage />
-              </div>
-
-              <div className="airportDetails">
-                <h2 style={{ height: '48px' }}>{airportTo.country}</h2>
-                <p style={{ height: '30px' }}>{airportTo.name}</p>
-              </div>
-
+            <div className="background">
+              <div className="overlay" />
+              <img src={airportFrom.images.full} alt="Airport" />
+              <img src={airportTo.images.full} alt="Airport" />
             </div>
-            {topSortedLayoversByCode.map((pathByCode, index) => {
-              return (
+
+            <div className="content">
+              <div className="header">
+
+                <div className="airportDetails">
+                  <h2 style={{ height: "48px" }}>{airportFrom.country}</h2>
+                  <p style={{ height: "30px" }}>{airportFrom.name}</p>
+                </div>
+
+                <div className="flightImage">
+                  <FlightImage />
+                </div>
+
+                <div className="airportDetails">
+                  <h2 style={{ height: "48px" }}>{airportTo.country}</h2>
+                  <p style={{ height: "30px" }}>{airportTo.name}</p>
+                </div>
+
+              </div>
+              {topSortedLayoversByCode.map((pathByCode, index) => (
                 <Banner
                   key={index}
                   from={airportFrom.code}
                   to={airportTo.code}
-                  layovers={pathByCode} />
-              );
-            })
-            }
+                  layovers={pathByCode}
+                />
+              ))}
 
+            </div>
           </div>
-        </div>
+        )
 
-        : <Navigate to="/" />
-      }
+        : <Navigate to="/" />}
     </>
   );
-};
+}
+
+export default Search;

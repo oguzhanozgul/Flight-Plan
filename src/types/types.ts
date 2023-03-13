@@ -14,7 +14,7 @@ export interface AirportData extends BaseAirport {
   averageRating: number;
 }
 
-export type Connection = {
+export type Connections = {
   [key: string]: number[];
 }
 

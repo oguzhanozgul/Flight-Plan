@@ -1,15 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 
-import './Spinner.css';
+import "./Spinner.css";
 
-const Spinner = () => {
+function Spinner() {
   return (
     <div className="spinner">
-      <span className="spinnerInner1"></span>
-      <span className="spinnerInner2"></span>
-      <span className="spinnerInner3"></span>
+      <span className="spinnerInner1" />
+      <span className="spinnerInner2" />
+      <span className="spinnerInner3" />
     </div>
   );
-};
+}
 
 export default Spinner;

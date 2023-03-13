@@ -5,4 +5,4 @@ export const apiUrl = (): string => {
   const appMode = import.meta.env.MODE;
 
   return appMode === "development" ? apiUrlDev : apiUrlProd;
-}
+};

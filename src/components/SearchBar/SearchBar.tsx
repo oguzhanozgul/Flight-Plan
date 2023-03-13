@@ -1,8 +1,8 @@
-import { SearchButton } from './SearchButton';
-import { SearchAutocomplete } from './SearchAutocomplete';
-import { Group } from '@mantine/core';
+import { Group } from "@mantine/core";
+import { SearchButton } from "./SearchButton";
+import { SearchAutocomplete } from "./SearchAutocomplete";
 
-export const SearchBar = () => {
+export function SearchBar() {
   return (
     <Group>
       <SearchAutocomplete label="From" type="from" />
@@ -10,4 +10,6 @@ export const SearchBar = () => {
       <SearchButton />
     </Group>
   );
-};
+}
+
+export default SearchBar;

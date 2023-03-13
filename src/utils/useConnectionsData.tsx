@@ -1,13 +1,11 @@
-import { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import { Connection, ServiceResponse } from '../types/types';
+import apiClient from "./apiClient";
+import { Connections, ServiceResponse } from "../types/types";
+import { connectionsLoaded, connectionsLoading, connectionsLoadingFailed } from "../store/connectionsSlice";
+import { useAppDispatch } from "../store/hooks";
+import { useEffect } from "react";
+import { useQuery } from "react-query";
 
-import { connectionsLoaded, connectionsLoading, connectionsLoadingFailed } from '../store/connectionsSlice';
-import { useAppDispatch } from '../store/hooks';
-import apiClient from '../utils/apiClient';
-import { parseConnections } from '../utils/utils';
-
-export function useConnectionsData() {
+export const useConnectionsData = () => {
   const dispatch = useAppDispatch();
 
   // We fetch everything below. In a prod. application, we would only get the connections from
@@ -18,13 +16,13 @@ export function useConnectionsData() {
     isLoading,
     isError,
     isSuccess,
-  } = useQuery<ServiceResponse<Connection[]>>({
+  } = useQuery<ServiceResponse<Connections[]>>({
     queryFn: async () => {
-      const { data } = await apiClient.get('connection/');
+      const { data } = await apiClient.get("connection/");
 
       return data;
     },
-    queryKey: ['airport-connections'],
+    queryKey: ["airport-connections"],
     retry: 5,
   });
 
@@ -50,4 +48,6 @@ export function useConnectionsData() {
       );
     }
   }, [isSuccess, isError, isLoading]);
-}
+};
+
+export default useConnectionsData;

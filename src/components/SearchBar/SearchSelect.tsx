@@ -1,30 +1,30 @@
 /* eslint-disable functional/immutable-data */
-import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import * as React from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectedAirportChanged } from '../../store/selectionBoxesSlice';
-import { AirportData, BaseAirport } from '../../types/types';
-import { parseAirportName } from '../../utils/utils';
-import { IconChevronRight } from '../../assets/icons/IconChevronRight';
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { selectedAirportChanged } from "../../store/selectionBoxesSlice";
+import { AirportData, BaseAirport } from "../../types/types";
+import { parseAirportName } from "../../utils/utils";
+import { IconChevronRight } from "../../assets/icons/IconChevronRight";
 
-import './SearchBar.css';
-import { SearchDropDown } from './SearchDropDown';
+import "./SearchBar.css";
+import { SearchDropDown } from "./SearchDropDown";
 
 interface Props {
   label: string;
-  type: 'from' | 'to';
+  type: "from" | "to";
 }
 
-export const SearchSelect = ({ label, type }: Props) => {
-  const [inputValue, setInputValue] = useState<string>(''); // the input value in the search box
+export function SearchSelect({ label, type }: Props) {
+  const [inputValue, setInputValue] = useState<string>(""); // the input value in the search box
   const [searching, setSearching] = useState<boolean>(false); // we use a short delay before triggering search. This state variable is set only after that delay, in order not to show the full list (as opposed to checking for input value - which is truthy immediately after user starts typing)
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false); // state variable to decide if we should show the drop down
   const [filteredOptions, setFilteredOptions] = useState<BaseAirport[]>([]); // airports which contain the input value
   const [allOptions, setAllOptions] = useState<BaseAirport[]>([]); // all airports
-  const airports = useAppSelector<AirportData[]>(state => state.airports.airports); // all airports data from app state
-  const loadingState = useAppSelector(state => state.airports.loadingState); // are airports loaded (was API call successful)
-  const selectedAirport = useAppSelector(state => state.selectedAirports[type]);
+  const airports = useAppSelector<AirportData[]>((state) => state.airports.airports); // all airports data from app state
+  const loadingState = useAppSelector((state) => state.airports.loadingState); // are airports loaded (was API call successful)
+  const selectedAirport = useAppSelector((state) => state.selectedAirports[type]);
 
   const dispatch = useAppDispatch();
 
@@ -45,10 +45,10 @@ export const SearchSelect = ({ label, type }: Props) => {
   };
 
   const triggerFilter = () => {
-    if (inputValue !== '') {
+    if (inputValue !== "") {
       const filtOptions = allOptions
-        .filter(option => option.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() // remove diacritics for better match
-          .includes(inputValue.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase())); // remove diacritics for better match
+        .filter((option) => option.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() // remove diacritics for better match
+          .includes(inputValue.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())); // remove diacritics for better match
 
       setFilteredOptions(filtOptions);
       setSearching(true);
@@ -68,8 +68,8 @@ export const SearchSelect = ({ label, type }: Props) => {
   }, [setDropDownOpen]);
 
   useEffect(() => {
-    if (selectedAirport.id !== 0 && loadingState === 'success') {
-      setInputValue(airports.filter(airport => airport.id === selectedAirport.id)[0].name);
+    if (selectedAirport.id !== 0 && loadingState === "success") {
+      setInputValue(airports.filter((airport) => airport.id === selectedAirport.id)[0].name);
     }
   }, [selectedAirport]);
 
@@ -85,19 +85,17 @@ export const SearchSelect = ({ label, type }: Props) => {
 
   // Load human readable name of the dropdown option and the corresponding airport id
   useEffect(() => {
-    if (loadingState === 'success') {
-      const allOptions = airports.map(airport => {
-        return {
-          id: airport.id, name: `${airport.name}, ${airport.city}, ${airport.country}`
-        };
-      });
+    if (loadingState === "success") {
+      const allOptions = airports.map((airport) => ({
+        id: airport.id, name: `${airport.name}, ${airport.city}, ${airport.country}`,
+      }));
       setAllOptions(allOptions);
       setFilteredOptions(allOptions);
     }
   }, [loadingState]);
 
   const getOptionsForDropdown = (): BaseAirport[] => {
-    if (loadingState !== 'success') { return [{ id: -1, name: 'Loading airports...' }]; }
+    if (loadingState !== "success") { return [{ id: -1, name: "Loading airports..." }]; }
     return filteredOptions;
   };
 
@@ -113,7 +111,7 @@ export const SearchSelect = ({ label, type }: Props) => {
           id="fname"
           name="fname"
           value={inputValue}
-          placeholder={dropDownOpen ? 'Start typing to search...' : '-'}
+          placeholder={dropDownOpen ? "Start typing to search..." : "-"}
           onChange={handleInputChange}
         />
       </div>
@@ -126,4 +124,6 @@ export const SearchSelect = ({ label, type }: Props) => {
     </div>
 
   );
-};
+}
+
+export default SearchSelect;

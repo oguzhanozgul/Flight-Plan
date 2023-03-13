@@ -1,15 +1,12 @@
-import { MantineProvider } from '@mantine/core'
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { Provider as ReduxProvider } from 'react-redux';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import App from "./App";
+import { store } from "./store/store";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-
-import App from './App'
-import './index.css'
-import { store } from './store/store';
-import MantineThemeProvider from './styles/MantineThemeProvider';
+import "./index.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,18 +19,15 @@ const queryClient = new QueryClient({
   },
 });
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <MantineThemeProvider>
-      <BrowserRouter>
-        <ReduxProvider store={store}>
-          <QueryClientProvider client={queryClient}>
 
-            <App />
-
-          </QueryClientProvider>
-        </ReduxProvider>
-      </BrowserRouter>
-    </MantineThemeProvider>
+    <BrowserRouter>
+      <ReduxProvider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </ReduxProvider>
+    </BrowserRouter>
   </React.StrictMode>,
-)
+);

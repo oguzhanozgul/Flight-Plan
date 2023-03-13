@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { useEffect } from 'react';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import * as React from "react";
+import { useEffect } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
-import { useAppSelector } from '../../store/hooks';
-import { IconSearch } from '../../assets/icons/IconSearch';
+import { useAppSelector } from "../../store/hooks";
+import { IconSearch } from "../../assets/icons/IconSearch";
 
-import './SearchBar.css';
-import { Button } from '@mantine/core';
+import "./SearchBar.css";
+import { Button } from "@mantine/core";
 
-export const SearchButton = () => {
+export function SeacrhButton() {
   const [enabled, setEnabled] = React.useState<boolean>(false);
-  const fromId = useAppSelector(state => state.selectedAirports.from.id);
-  const toId = useAppSelector(state => state.selectedAirports.to.id);
+  const fromId = useAppSelector((state) => state.selectedAirports.from.id);
+  const toId = useAppSelector((state) => state.selectedAirports.to.id);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const SearchButton = () => {
   const handleSearchClick = () => {
     if (enabled) {
       const params = { from: fromId.toString(), to: toId.toString() };
-      navigate({ pathname: '/search', search: `?${createSearchParams(params)}` });
+      navigate({ pathname: "/search", search: `?${createSearchParams(params)}` });
     }
   };
 
@@ -30,4 +30,6 @@ export const SearchButton = () => {
       <IconSearch />
     </Button>
   );
-};
+}
+
+export default SeacrhButton;

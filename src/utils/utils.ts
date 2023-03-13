@@ -1,5 +1,4 @@
-/* eslint-disable functional/immutable-data */
-import { Airports, Connections } from '../types/types';
+import { Connections } from "../types/types";
 
 // LEGACY: Code used to parse the airport name with the older version of the API, not used anymore
 export const parseAirportName = (rawName: string): string => {
@@ -12,25 +11,23 @@ export const parseAirportName = (rawName: string): string => {
   const cityResult = rawName.match(beforeHyphen);
   const airportResult = rawName.match(afterHyphen);
 
-  const cityName = cityResult ? cityResult[0].trim() : '';
-  const airportName = airportResult ? airportResult[0].trim() : '';
+  const cityName = cityResult ? cityResult[0].trim() : "";
+  const airportName = airportResult ? airportResult[0].trim() : "";
 
-  return `${cityName}${cityName ? ', ' : ''}${airportName}`;
+  return `${cityName}${cityName ? ", " : ""}${airportName}`;
 };
 
 // LEGACY: Code used to parse the connections with the older version of the API, not used anymore
 export const parseConnections = (connString: string): Connections => {
   const retVal: Connections = {};
-  connString.split(/\r?\n/).forEach(connection => {
+  connString.split(/\r?\n/).forEach((connection) => {
     const [key, rest] = connection.split(/:/);
-    retVal[key] = rest.trim().split(/,\s/).map(element => parseInt(element));
+    retVal[key] = rest.trim().split(/,\s/).map((element) => parseInt(element));
   });
 
   return retVal;
 };
 
-export const airportIdToCode = (id: number, airports: Airports): string => {
-  return airports.find(airport => airport.id === id)!.code;
-};
+export const airportIdToCode = (id: number, airports: Airports): string => airports.find((airport) => airport.id === id)!.code;
 
 export default parseAirportName;

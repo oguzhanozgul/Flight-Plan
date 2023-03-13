@@ -1,13 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { AirportGrid } from '../../components/AirportGrid/AirportGrid';
-import { SearchBar } from '../../components/SearchBar/SearchBar';
+import { AirportGrid } from "../../components/AirportGrid/AirportGrid";
+import { SearchBar } from "../../components/SearchBar/SearchBar";
 
-export const Home = () => {
+export function Home() {
   return (
     <>
       <SearchBar />
       <AirportGrid />
     </>
   );
-};
+}
+
+export default Home;
