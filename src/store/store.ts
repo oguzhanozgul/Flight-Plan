@@ -1,8 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-
-import airportsReducer from './airportsSlice';
-import connectionsReducer from './connectionsSlice';
-import selectionBoxesReducer from './selectionBoxesSlice';
+import airportsReducer from "./airportsSlice";
+import connectionsReducer from "./connectionsSlice";
+import selectionBoxesReducer from "./selectionBoxesSlice";
+import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
 

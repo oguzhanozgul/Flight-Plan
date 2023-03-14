@@ -1,36 +1,72 @@
 import { IconPinDrop } from "../../assets/icons/IconPinDrop";
-
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { AirportData, BaseAirport } from "../../types/types";
+import { selectedAirportChanged, selectedAirportRemoved } from "../../store/selectionBoxesSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { forwardRef, useEffect, useState } from "react";
 
 import "./SearchBar.css";
 import {
-  Autocomplete, Group, Text, SelectItemProps, Box,
+  Autocomplete, Group, Text, SelectItemProps, Box, AutocompleteItem,
 } from "@mantine/core";
 
-interface Props {
+interface AutocompleteItemProps extends SelectItemProps {
+  optionId: number;
+}
+
+const MyAutocompleteItem = forwardRef<HTMLDivElement, AutocompleteItemProps>(
+  ({
+    value, ...others
+  }: AutocompleteItemProps, ref) => (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        <Box w="24px" h="24px">
+          <IconPinDrop />
+        </Box>
+        <Text>
+          {value}
+        </Text>
+      </Group>
+    </div>
+  ),
+);
+
+interface SearchAutocompleteProps {
   type: "from" | "to";
 }
 
-export function SearchAutocomplete({ type }: Props) {
-  const [value, setValue] = useState({ optionId: -1, label: "" }); // the input value in the search box
+export function SearchAutocomplete({ type }: SearchAutocompleteProps) {
+  const [value, setValue] = useState(""); // the input value in the search box
   const [airportOptions, setAirportOptions] = useState<BaseAirport[]>([]); // all airports
   const airports = useAppSelector<AirportData[]>((state) => state.airports.airports); // all airports data from app state
-  const loadingState = useAppSelector((state) => state.airports.loadingState); // are airports loaded (was API call successful)
+  const loadingState = useAppSelector((state) => state.airports.loadingState); // are airports loaded (was API call successful)+
   const selectedAirport = useAppSelector((state) => state.selectedAirports[type]);
 
   const dispatch = useAppDispatch();
 
-  // const handleInputChange = useCallback((event: React.FormEvent<HTMLInputElement>) => {
-  //   setValue(event.currentTarget.value);
-  // }, [setValue]);
+  const handleInputChange = (val: string) => {
+    setValue(val);
+  };
 
-  // useEffect(() => {
-  //   if (selectedAirport.id !== 0 && loadingState === 'success') {
-  //     setValue(airports.filter(airport => airport.id === selectedAirport.id)[0].name);
-  //   }
-  // }, [selectedAirport]);
+  const handleItemSubmit = (item: AutocompleteItem) => {
+    dispatch(
+      selectedAirportChanged({
+        id: item.optionId,
+        type,
+      }),
+    );
+  };
+
+  const handleXClick = () => {
+    setValue("");
+    dispatch(
+      selectedAirportRemoved({
+        type,
+      }),
+    );
+  };
 
   // Load human readable name of the dropdown option and the corresponding airport id
   useEffect(() => {
@@ -42,34 +78,37 @@ export function SearchAutocomplete({ type }: Props) {
     }
   }, [loadingState]);
 
-  const AutocompleteData = () => (loadingState === "success" ? airportOptions.map((option) => ({ optionId: option.id, value: option.name })) : [{ optionId: -1, value: "Loading airports..." }]);
+  useEffect(() => {
+    if (selectedAirport.id !== 0 && loadingState === "success") {
+      setValue(airports.filter((airport) => airport.id === selectedAirport.id)[0].name);
+    }
+  }, [selectedAirport]);
 
-  interface ItemProps extends SelectItemProps {
-    optionId: number;
-  }
+  // Prepare list data using the API data
+  const autocompleteData = (): (AutocompleteItem | string)[] => (loadingState === "success" ? airportOptions.map((option) => ({ optionId: option.id, value: option.name })) : [{ optionId: -1, value: "Loading airports..." }]);
 
-  const AutocompleteItem = forwardRef<HTMLDivElement, ItemProps>(
-    ({ value, optionId, ...others }: ItemProps, ref) => (
-      <div ref={ref} {...others}>
-        <Group noWrap>
-          <Box w="24px" h="24px">
-            <IconPinDrop />
-          </Box>
-          <Text>{value}</Text>
-        </Group>
-      </div>
-    ),
-  );
+  // Icon on the right side
+  const rightSection = () => {
+    if (value === "") return null;
+    return (
+      <FontAwesomeIcon icon={faXmark} color="#848CA2" onClick={handleXClick} />
+    );
+  };
 
   return (
     <Autocomplete
       w="400px"
+      icon={<IconPinDrop />}
+      rightSection={rightSection()}
       nothingFound="No results..."
       placeholder={type === "from" ? "From..." : "To..."}
-      itemComponent={AutocompleteItem}
-      data={AutocompleteData()}
-      filter={(value, item) => item.value.toLowerCase().includes(value.toLowerCase().trim())}
-      value={value.label}
+      itemComponent={MyAutocompleteItem}
+      data={autocompleteData()}
+      limit={10}
+      filter={(val, item) => item.value.toLowerCase().includes(val.toLowerCase().trim())}
+      value={value}
+      onChange={(val) => handleInputChange(val)}
+      onItemSubmit={(item) => handleItemSubmit(item)}
     />
   );
 }
