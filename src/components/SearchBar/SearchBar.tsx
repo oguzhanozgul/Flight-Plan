@@ -1,6 +1,6 @@
-import { Group } from "@mantine/core";
 import { SearchButton } from "./SearchButton";
 import { SearchAutocomplete } from "./SearchAutocomplete";
+import { Group } from "@mantine/core";
 
 export function SearchBar() {
   return (

@@ -16,7 +16,7 @@ export const useConnectionsData = () => {
     isLoading,
     isError,
     isSuccess,
-  } = useQuery<ServiceResponse<Connections[]>>({
+  } = useQuery<ServiceResponse<Connections>>({
     queryFn: async () => {
       const { data } = await apiClient.get("connection/");
 

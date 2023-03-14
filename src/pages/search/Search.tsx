@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import * as React from "react";
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 
 import { useAppSelector } from "../../store/hooks";
-import { AirportData, Airports } from "../../types/types";
+import { AirportData } from "../../types/types";
 import { findAllPaths } from "../../utils/connectionsGraph";
 import { airportIdToCode } from "../../utils/utils";
 import { IconLeftArrow } from "../../assets/icons/IconLeftArrow";
@@ -11,10 +9,11 @@ import Spinner from "../../components/Spinner/Spinner";
 
 import { Banner } from "../../components/Banner/Banner";
 import { FlightImage } from "../../components/FlightImage/FlightImage";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import "./Search.css";
 
 export function Search() {
-  const airports = useAppSelector<Airports>((state) => state.airports.airports);
+  const airports = useAppSelector<AirportData[]>((state) => state.airports.airports);
   const airportsLoadingStatus = useAppSelector((state) => state.airports.loadingState);
   const connectionsLoadingStatus = useAppSelector((state) => state.connections.loadingState);
   const connections = useAppSelector((state) => state.connections.connections);
@@ -32,29 +31,37 @@ export function Search() {
 
   const handleBackButtonClick = () => navigate(-1);
 
-  const airportFrom: AirportData | undefined = airports.find((airport) => airport.id === parseInt(searchParams.get("from")!));
-  const airportTo: AirportData | undefined = airports.find((airport) => airport.id === parseInt(searchParams.get("to")!));
+  const airportFrom: AirportData | undefined = airports.find((airport) => airport.id === parseInt(searchParams.get("from")!, 10));
+  const airportTo: AirportData | undefined = airports.find((airport) => airport.id === parseInt(searchParams.get("to")!, 10));
 
   let topSortedLayoversByCode: string[][] = [];
   if (airportFrom && airportTo) {
     const minNumberOfSearchResults = 50; // give me at least this number of results
     const maxConnectionLimit = 3; // but don't go higher than this number of connecting flights
-    const allPaths: number[][] = findAllPaths(connections, airportFrom.id, airportTo.id, maxConnectionLimit, minNumberOfSearchResults);
+    const allPaths: number[][] = findAllPaths(
+      connections,
+      airportFrom.id,
+      airportTo.id,
+      maxConnectionLimit,
+      minNumberOfSearchResults,
+    );
 
     // sort by number of connections
     const allPathsSorted = [...allPaths].sort((a, b) => (a.length - b.length));
 
     const topSortedPathsById: number[][] = allPathsSorted.slice(0, minNumberOfSearchResults);
-    const topSortedPathsByCode: string[][] = topSortedPathsById.map((resultId) => resultId.map((id) => airportIdToCode(id, airports)));
+    const topSortedPathsByCode: string[][] = topSortedPathsById.map(
+      (resultId) => resultId.map((id) => airportIdToCode(id, airports)),
+    );
     topSortedLayoversByCode = topSortedPathsByCode.map((pathByCode) => pathByCode.slice(1, pathByCode.length - 1));
   }
 
   return (
-    <>
+    <div>
       {airportFrom && airportTo
         ? (
           <div>
-            <button className="backButton" onClick={handleBackButtonClick}>
+            <button className="backButton" type="button" onClick={handleBackButtonClick}>
               <IconLeftArrow />
               Back
             </button>
@@ -83,9 +90,9 @@ export function Search() {
                 </div>
 
               </div>
-              {topSortedLayoversByCode.map((pathByCode, index) => (
+              {topSortedLayoversByCode.map((pathByCode) => (
                 <Banner
-                  key={index}
+                  key={`${airportFrom.code}${airportTo.code}`}
                   from={airportFrom.code}
                   to={airportTo.code}
                   layovers={pathByCode}
@@ -97,7 +104,7 @@ export function Search() {
         )
 
         : <Navigate to="/" />}
-    </>
+    </div>
   );
 }
 

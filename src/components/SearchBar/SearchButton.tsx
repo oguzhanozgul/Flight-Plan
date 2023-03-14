@@ -1,14 +1,13 @@
+import { useAppSelector } from "../../store/hooks";
+import { IconSearch } from "../../assets/icons/IconSearch";
 import * as React from "react";
 import { useEffect } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
 
-import { useAppSelector } from "../../store/hooks";
-import { IconSearch } from "../../assets/icons/IconSearch";
-
 import "./SearchBar.css";
 import { Button } from "@mantine/core";
 
-export function SeacrhButton() {
+export function SearchButton() {
   const [enabled, setEnabled] = React.useState<boolean>(false);
   const fromId = useAppSelector((state) => state.selectedAirports.from.id);
   const toId = useAppSelector((state) => state.selectedAirports.to.id);
@@ -32,4 +31,4 @@ export function SeacrhButton() {
   );
 }
 
-export default SeacrhButton;
+export default SearchButton;

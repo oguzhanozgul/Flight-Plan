@@ -1,9 +1,6 @@
-import * as React from "react";
-
-import { BaseAirport } from "../../types/types";
-
-import "./SearchBar.css";
 import { SearchDropDownOption } from "./SearchDropDownOption";
+import { BaseAirport } from "../../types/types";
+import "./SearchBar.css";
 
 interface Props {
   options: BaseAirport[];

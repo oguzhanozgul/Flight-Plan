@@ -2,7 +2,7 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable max-len */
 
-import { findAllPaths } from './connectionsGraph';
+import { findAllPaths } from "./connectionsGraph";
 
 const connections = {
   248: [1084, 507, 2188],
@@ -62,15 +62,15 @@ describe(`from ${src3941}, to ${dst1551}, max connections ${maxConnections2}, `,
     expect(resultingPaths2.length).toBe(50);
   });
   test(`all returned paths have a maximum of ${maxConnections2} connections`, () => {
-    expect(resultingPaths2.every(path => path.length <= maxConnections2 + 2)).toBeTruthy();
+    expect(resultingPaths2.every((path) => path.length <= maxConnections2 + 2)).toBeTruthy();
   });
   test(`all 50 paths starts with ${src3941} and ends with ${dst1551}`, () => {
-    expect(resultingPaths2.every(path => path[0] === src3941 && path[path.length - 1] === dst1551)).toBeTruthy();
+    expect(resultingPaths2.every((path) => path[0] === src3941 && path[path.length - 1] === dst1551)).toBeTruthy();
   });
 });
 
 describe(`from ${src3941}, to ${dst1551}, max connections ${maxConnections0}, `, () => {
-  test('returns 1 path only', () => {
+  test("returns 1 path only", () => {
     expect(resultingPaths3.length).toBe(1);
   });
 });

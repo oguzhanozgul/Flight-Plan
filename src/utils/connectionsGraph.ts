@@ -1,5 +1,4 @@
-/* eslint-disable functional/immutable-data */
-import { Connections } from '../types/types';
+import { Connections } from "../types/types";
 
 type AirportSearchBFSDS = {
   source: number;
@@ -8,26 +7,6 @@ type AirportSearchBFSDS = {
   maxAirports: number;
   minNumberOfSearchResults: number;
 }
-
-export const findAllPaths = (
-  connections: Connections,
-  airportFrom: number,
-  airportTo: number,
-  maxConnections: number,
-  minNumberOfSearchResults: number): number[][] => {
-  const reductionToAccountForSourceAndDestination = 2;
-  const maxAirports = maxConnections + reductionToAccountForSourceAndDestination;
-
-  const airportSearchBreadthFSDS: AirportSearchBFSDS = {
-    connections,
-    destination: airportTo,
-    maxAirports,
-    minNumberOfSearchResults,
-    source: airportFrom,
-  };
-
-  return bfs(airportSearchBreadthFSDS);
-};
 
 function bfs(airportSearchBFSDS: AirportSearchBFSDS): number[][] {
   const queue: number[][] = []; // a queue which will store the paths
@@ -49,6 +28,7 @@ function bfs(airportSearchBFSDS: AirportSearchBFSDS): number[][] {
 
     // then traverse all airports from the current airport and push their path to the queue
     const currentAirportConnections = airportSearchBFSDS.connections[lastAirportInPath];
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < currentAirportConnections.length; i++) {
       // if (isNotVisited(lastNode[i], currentPath)) {
       if (!currentPath.includes(currentAirportConnections[i])) {
@@ -61,5 +41,26 @@ function bfs(airportSearchBFSDS: AirportSearchBFSDS): number[][] {
 
   return foundPaths;
 }
+
+export const findAllPaths = (
+  connections: Connections,
+  airportFrom: number,
+  airportTo: number,
+  maxConnections: number,
+  minNumberOfSearchResults: number,
+): number[][] => {
+  const reductionToAccountForSourceAndDestination = 2;
+  const maxAirports = maxConnections + reductionToAccountForSourceAndDestination;
+
+  const airportSearchBreadthFSDS: AirportSearchBFSDS = {
+    connections,
+    destination: airportTo,
+    maxAirports,
+    minNumberOfSearchResults,
+    source: airportFrom,
+  };
+
+  return bfs(airportSearchBreadthFSDS);
+};
 
 export default findAllPaths;

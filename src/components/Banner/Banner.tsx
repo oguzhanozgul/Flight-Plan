@@ -23,7 +23,7 @@ export function Banner({ from, to, layovers }: Props) {
 
       <div className="summary">
         <span>{changesCount === 0 ? "Direct" : `${changesCount} change${changesCount > 1 ? "s" : ""}`}</span>
-        <button className="goButton">Go!</button>
+        <button className="goButton" type="button">Go!</button>
       </div>
 
     </div>

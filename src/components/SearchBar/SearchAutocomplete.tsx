@@ -1,14 +1,14 @@
-import { forwardRef, useEffect, useState } from "react";
+import { IconPinDrop } from "../../assets/icons/IconPinDrop";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { AirportData, BaseAirport } from "../../types/types";
 import { IconChevronRight } from "../../assets/icons/IconChevronRight";
+import { forwardRef, useEffect, useState } from "react";
 
 import "./SearchBar.css";
 import {
   Autocomplete, Group, Text, SelectItemProps, Box,
 } from "@mantine/core";
-import { IconPinDrop } from "../../assets/icons/IconPinDrop";
 
 interface Props {
   label: string;

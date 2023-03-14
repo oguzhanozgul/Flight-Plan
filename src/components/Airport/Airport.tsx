@@ -6,7 +6,9 @@ import { airportIdToCode } from "../../utils/utils";
 import "./Airport.css";
 import { Rating } from "../Rating/Rating";
 import { apiUrl } from "../../utils/apiUrl";
-import { Button, Group, Text } from "@mantine/core";
+import {
+  Button, Card, Group, Text, BackgroundImage, Stack, Overlay,
+} from "@mantine/core";
 
 interface Props {
   airportData: AirportData;
@@ -38,37 +40,58 @@ export const Airport = function ({ airportData }: Props) {
   const myConnections = (): string[] => connections[airportData.id].map((connId) => airportIdToCode(connId, airports));
 
   return (
-    <div className="airport">
-      <img className="image" src={`${apiUrl()}${airportData.images.small}`} alt={`${airportData.name} Airport in ${airportData.country}`} />
-      <div className="overlay" />
-      <div className="content">
-        <div className="basicInfo" style={{ height: "34px", marginBottom: "4px" }}>
-          <Text>{airportData.country}</Text>
-          <Rating rating={airportData.averageRating} />
-        </div>
-        <div className="basicInfo" style={{ height: "30px", marginBottom: "16px" }}>
-          <Text>{airportData.name}</Text>
-        </div>
-        <Text>
-          Direct connections
-        </Text>
-        <Text>
-          {myConnections().join(" | ")}
-        </Text>
-        <Group spacing={12}>
-          <Button color="#E46846" onClick={handleStartFromClick}>
-            <Text>
+
+    <BackgroundImage
+      src={`${apiUrl()}${airportData.images.small}`}
+      h={350}
+      w={350}
+      radius="md"
+    >
+      <Card
+        bg="rgba(0, 0, 0, .5)"
+        h="100%"
+        sx={(theme) => ({
+          transition: "all 0.5s",
+          "&:hover": {
+            // backdropFilter: "blur(5px)",
+            transition: "2",
+            backgroundColor: "rgba(0, 0, 0, .25)",
+          },
+        })}
+      >
+        {/* <Overlay color="white" opacity={0.5} /> */}
+        <Stack align="stretch" justify="space-between" h="100%">
+
+          <Group position="apart" mt="md" mb="xs">
+            <Text color="white" weight={500}>{airportData.country}</Text>
+            <Rating rating={airportData.averageRating} />
+          </Group>
+
+          <Text color="white">{airportData.name}</Text>
+
+          <Stack spacing={8}>
+            <Text color="white">
+              Direct connections
+            </Text>
+            <Text color="white">
+              {myConnections().join(" | ")}
+            </Text>
+          </Stack>
+
+          <Group spacing={12} position="center">
+            <Button w={125} color="primary" onClick={handleStartFromClick}>
               Start from
-            </Text>
-          </Button>
-          <Button color="#E46846" onClick={handleGoToClick}>
-            <Text>
+            </Button>
+            <Button w={125} onClick={handleGoToClick}>
               Go to
-            </Text>
-          </Button>
-        </Group>
-      </div>
-    </div>
+            </Button>
+          </Group>
+
+        </Stack>
+
+      </Card>
+    </BackgroundImage>
+
   );
 };
 

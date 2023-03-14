@@ -1,30 +1,29 @@
 import { MantineThemeOverride } from "@mantine/core";
 
-export default theme: MantineThemeOverride = {
+export const theme: MantineThemeOverride = {
   colors: {
     brand: [
-      // Put your brand's color palette here
-      // For Example:
-      // "#ebfafa",
-      // "#caeded",
-      // "#a7e2e2",
-      // "#84d7d6",
-      // "#66cccc",
-      // "#50b3b2",
-      // "#408b8b",
-      // "#2e6363",
-      // "#1b3b3b",
-      // "#051414",
+      "#E46846",
+      "#C87E95",
+      "#CA5F7F",
+      "#D23B69",
+      "#DB1A54",
+      "#DD0244",
+      "#B31645",
+      "#932244",
+      "#7A2841",
+      "#672C3D",
     ],
   },
   // This will be used as a default color for all components. Change it to your liking.
   // Reference for all available colors: https://mantine.dev/theming/colors/#default-colors
-  primaryColor: "teal",
-  primaryShade: { light: 8, dark: 7 },
+  primaryColor: "brand",
+  primaryShade: { light: 4, dark: 5 },
   headings: {
     // This will be used as a default font family for all headings. Change it to your liking.
     // For Example: (Custom font)
     // fontFamily: "Sora, sans-serif",
+    fontFamily: "Open Sans, sans-serif",
     fontWeight: 700,
     sizes: {
       h1: { fontSize: "42" },
@@ -37,7 +36,7 @@ export default theme: MantineThemeOverride = {
   },
   // This will be used as a default font family for all components. Change it to your liking.
   // For Example: (Custom font)
-  fontFamily: "Public Sans, sans-serif",
+  fontFamily: "Open Sans, sans-serif",
   fontSizes: {
     xs: "12",
     sm: "14",
@@ -45,4 +44,13 @@ export default theme: MantineThemeOverride = {
     lg: "18",
     xl: "20",
   },
+  components: {
+    Button: {
+      defaultProps: {
+        radius: "md",
+      },
+    },
+  },
 };
+
+export default theme;

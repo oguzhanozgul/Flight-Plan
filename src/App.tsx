@@ -1,17 +1,14 @@
 import { useConnectionsData } from "./utils/useConnectionsData";
 import { useAirportData } from "./utils/useAirportData";
-import theme from "./theme/theme";
+import { theme } from "./theme/theme";
 import { Home } from "./pages/home/Home";
 import { Search } from "./pages/search/Search";
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from "@mantine/core";
-import { useState } from "react";
+import { Container, MantineProvider } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
 
 function App() {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
-
   useAirportData();
   useConnectionsData();
 
@@ -22,15 +19,17 @@ function App() {
       theme={{
         /** Put your mantine theme override here */
         ...theme,
-        colorScheme,
+        colorScheme: "dark",
       }}
     >
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/*" element={<Home />} />
-      </Routes>
+      <Container size="xl">
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/*" element={<Home />} />
+        </Routes>
+      </Container>
     </MantineProvider>
 
   );
