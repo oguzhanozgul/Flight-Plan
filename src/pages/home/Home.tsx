@@ -4,9 +4,11 @@ import { Stack } from "@mantine/core";
 
 export function Home() {
   return (
-    <Stack spacing="xl">
+    <Stack spacing={48}>
       <SearchBar />
-      <AirportGrid />
+      <Stack spacing="xl">
+        <AirportGrid />
+      </Stack>
     </Stack>
   );
 }

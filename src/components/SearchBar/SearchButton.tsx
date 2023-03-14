@@ -25,7 +25,7 @@ export function SearchButton() {
   };
 
   return (
-    <Button color="#E46846" onClick={handleSearchClick}>
+    <Button color="#E46846" onClick={handleSearchClick} disabled={!enabled}>
       <IconSearch />
     </Button>
   );

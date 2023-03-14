@@ -7,7 +7,7 @@ import "./Airport.css";
 import { Rating } from "../Rating/Rating";
 import { apiUrl } from "../../utils/apiUrl";
 import {
-  Button, Card, Group, Text, BackgroundImage, Stack, Overlay,
+  Button, Card, Group, Text, BackgroundImage, Stack,
 } from "@mantine/core";
 
 interface Props {
@@ -50,42 +50,44 @@ export const Airport = function ({ airportData }: Props) {
       <Card
         bg="rgba(0, 0, 0, .5)"
         h="100%"
-        sx={(theme) => ({
+        sx={{
           transition: "all 0.5s",
           "&:hover": {
-            // backdropFilter: "blur(5px)",
             transition: "2",
             backgroundColor: "rgba(0, 0, 0, .25)",
           },
-        })}
+        }}
       >
-        {/* <Overlay color="white" opacity={0.5} /> */}
         <Stack align="stretch" justify="space-between" h="100%">
 
-          <Group position="apart" mt="md" mb="xs">
-            <Text color="white" weight={500}>{airportData.country}</Text>
-            <Rating rating={airportData.averageRating} />
-          </Group>
+          <Stack align="stretch" spacing={16}>
+            <Group position="apart">
+              <Text color="white">{airportData.country}</Text>
+              <Rating rating={airportData.averageRating} />
+            </Group>
 
-          <Text color="white">{airportData.name}</Text>
-
-          <Stack spacing={8}>
-            <Text color="white">
-              Direct connections
-            </Text>
-            <Text color="white">
-              {myConnections().join(" | ")}
-            </Text>
+            <Text color="white" weight={700}>{airportData.name}</Text>
           </Stack>
 
-          <Group spacing={12} position="center">
-            <Button w={125} color="primary" onClick={handleStartFromClick}>
-              Start from
-            </Button>
-            <Button w={125} onClick={handleGoToClick}>
-              Go to
-            </Button>
-          </Group>
+          <Stack align="stretch" spacing={16}>
+            <Stack spacing={8}>
+              <Text color="gray">
+                Direct connections
+              </Text>
+              <Text color="white">
+                {myConnections().join(" | ")}
+              </Text>
+            </Stack>
+
+            <Group spacing={12} position="center">
+              <Button w={125} color="primary" onClick={handleStartFromClick}>
+                Start from
+              </Button>
+              <Button w={125} onClick={handleGoToClick}>
+                Go to
+              </Button>
+            </Group>
+          </Stack>
 
         </Stack>
 

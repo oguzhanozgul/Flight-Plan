@@ -2,7 +2,6 @@ import { IconPinDrop } from "../../assets/icons/IconPinDrop";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { AirportData, BaseAirport } from "../../types/types";
-import { IconChevronRight } from "../../assets/icons/IconChevronRight";
 import { forwardRef, useEffect, useState } from "react";
 
 import "./SearchBar.css";
@@ -11,11 +10,10 @@ import {
 } from "@mantine/core";
 
 interface Props {
-  label: string;
   type: "from" | "to";
 }
 
-export function SearchAutocomplete({ label, type }: Props) {
+export function SearchAutocomplete({ type }: Props) {
   const [value, setValue] = useState({ optionId: -1, label: "" }); // the input value in the search box
   const [airportOptions, setAirportOptions] = useState<BaseAirport[]>([]); // all airports
   const airports = useAppSelector<AirportData[]>((state) => state.airports.airports); // all airports data from app state
@@ -64,19 +62,15 @@ export function SearchAutocomplete({ label, type }: Props) {
   );
 
   return (
-    <Group spacing={8}>
-      <Text>{label}</Text>
-      <Autocomplete
-        w="400px"
-        nothingFound="No results..."
-        placeholder="Start typing to search..."
-        itemComponent={AutocompleteItem}
-        data={AutocompleteData()}
-        filter={(value, item) => item.value.toLowerCase().includes(value.toLowerCase().trim())}
-        value={value.label}
-      // onChange={setValue}
-      />
-    </Group>
+    <Autocomplete
+      w="400px"
+      nothingFound="No results..."
+      placeholder={type === "from" ? "From..." : "To..."}
+      itemComponent={AutocompleteItem}
+      data={AutocompleteData()}
+      filter={(value, item) => item.value.toLowerCase().includes(value.toLowerCase().trim())}
+      value={value.label}
+    />
   );
 }
 

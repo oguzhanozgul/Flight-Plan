@@ -1,14 +1,18 @@
 import { SearchButton } from "./SearchButton";
 import { SearchAutocomplete } from "./SearchAutocomplete";
-import { Group } from "@mantine/core";
+import { Box, Center, Group } from "@mantine/core";
 
 export function SearchBar() {
   return (
-    <Group>
-      <SearchAutocomplete label="From" type="from" />
-      <SearchAutocomplete label="To" type="to" />
-      <SearchButton />
-    </Group>
+    <Box h="100%">
+      <Center h="100%" w="100%" mx="auto" p="md">
+        <Group position="center">
+          <SearchAutocomplete type="from" />
+          <SearchAutocomplete type="to" />
+          <SearchButton />
+        </Group>
+      </Center>
+    </Box>
   );
 }
 
