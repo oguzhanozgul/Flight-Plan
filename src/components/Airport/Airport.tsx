@@ -3,7 +3,6 @@ import { selectedAirportChanged } from "../../store/selectionBoxesSlice";
 import { AirportData } from "../../types/types";
 import { airportIdToCode } from "../../utils/utils";
 
-import "./Airport.css";
 import { Rating } from "../Rating/Rating";
 import { apiUrl } from "../../utils/apiUrl";
 import {

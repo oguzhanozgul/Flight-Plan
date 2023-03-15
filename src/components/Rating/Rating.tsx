@@ -1,6 +1,5 @@
 import { faStar as faStarFull, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons";
-import "./Rating.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {

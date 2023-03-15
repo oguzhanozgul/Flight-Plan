@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-import "./SearchBar.css";
 import { Button } from "@mantine/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -26,7 +25,7 @@ export function SearchButton() {
   };
 
   return (
-    <Button color="#E46846" onClick={handleSearchClick} disabled={!enabled}>
+    <Button color="primary" onClick={handleSearchClick} disabled={!enabled}>
       <FontAwesomeIcon icon={faMagnifyingGlass} color="white" />
     </Button>
   );

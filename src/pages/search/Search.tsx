@@ -4,13 +4,14 @@ import { useAppSelector } from "../../store/hooks";
 import { AirportData } from "../../types/types";
 import { findAllPaths } from "../../utils/connectionsGraph";
 import { airportIdToCode } from "../../utils/utils";
-import { IconLeftArrow } from "../../assets/icons/IconLeftArrow";
-import Spinner from "../../components/Spinner/Spinner";
-
 import { Banner } from "../../components/Banner/Banner";
 import { FlightImage } from "../../components/FlightImage/FlightImage";
+import apiUrl from "../../utils/apiUrl";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import "./Search.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Center, Loader } from "@mantine/core";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 export function Search() {
   const airports = useAppSelector<AirportData[]>((state) => state.airports.airports);
@@ -21,7 +22,11 @@ export function Search() {
   const navigate = useNavigate();
 
   if (airportsLoadingStatus === "pending" || connectionsLoadingStatus === "pending") {
-    return <Spinner />;
+    return (
+      <Center>
+        <Loader />
+      </Center>
+    );
   }
   if (airportsLoadingStatus === "fail" || connectionsLoadingStatus === "fail") {
     return (
@@ -62,13 +67,13 @@ export function Search() {
         ? (
           <div>
             <button className="backButton" type="button" onClick={handleBackButtonClick}>
-              <IconLeftArrow />
+              <FontAwesomeIcon icon={faArrowLeftLong} color="white" />
               Back
             </button>
 
             <div className="background">
               <div className="overlay" />
-              <img src={airportFrom.images.full} alt="Airport" />
+              <img src={`${apiUrl()}${airportFrom.images.full}`} alt="Airport" />
               <img src={airportTo.images.full} alt="Airport" />
             </div>
 

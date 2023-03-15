@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { forwardRef, useEffect, useState } from "react";
 
-import "./SearchBar.css";
 import {
   Autocomplete, Group, Text, SelectItemProps, Box, AutocompleteItem,
 } from "@mantine/core";

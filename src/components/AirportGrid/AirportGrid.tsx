@@ -3,8 +3,6 @@ import { AirportData } from "../../types/types";
 import { Airport } from "../Airport/Airport";
 import { Center, Flex, Loader } from "@mantine/core";
 
-import "./AirportGrid.css";
-
 export function AirportGrid() {
   const airports = useAppSelector<AirportData[]>((state) => state.airports.airports);
   const airportsLoadingStatus = useAppSelector((state) => state.airports.loadingState);
