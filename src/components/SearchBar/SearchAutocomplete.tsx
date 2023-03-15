@@ -1,9 +1,8 @@
-import { IconPinDrop } from "../../assets/icons/IconPinDrop";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { AirportData, BaseAirport } from "../../types/types";
 import { selectedAirportChanged, selectedAirportRemoved } from "../../store/selectionBoxesSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { forwardRef, useEffect, useState } from "react";
 
 import "./SearchBar.css";
@@ -23,7 +22,7 @@ const MyAutocompleteItem = forwardRef<HTMLDivElement, AutocompleteItemProps>(
     <div ref={ref} {...others}>
       <Group noWrap>
         <Box w="24px" h="24px">
-          <IconPinDrop />
+          <FontAwesomeIcon icon={faLocationDot} color="#848CA2" />
         </Box>
         <Text>
           {value}
@@ -98,7 +97,7 @@ export function SearchAutocomplete({ type }: SearchAutocompleteProps) {
   return (
     <Autocomplete
       w="400px"
-      icon={<IconPinDrop />}
+      icon={<FontAwesomeIcon icon={faLocationDot} color="#848CA2" />}
       rightSection={rightSection()}
       nothingFound="No results..."
       placeholder={type === "from" ? "From..." : "To..."}

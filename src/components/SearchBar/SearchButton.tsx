@@ -1,11 +1,12 @@
 import { useAppSelector } from "../../store/hooks";
-import { IconSearch } from "../../assets/icons/IconSearch";
 import * as React from "react";
 import { useEffect } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import "./SearchBar.css";
 import { Button } from "@mantine/core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function SearchButton() {
   const [enabled, setEnabled] = React.useState<boolean>(false);
@@ -26,7 +27,7 @@ export function SearchButton() {
 
   return (
     <Button color="#E46846" onClick={handleSearchClick} disabled={!enabled}>
-      <IconSearch />
+      <FontAwesomeIcon icon={faMagnifyingGlass} color="white" />
     </Button>
   );
 }
