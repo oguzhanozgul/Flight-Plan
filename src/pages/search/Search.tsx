@@ -5,12 +5,14 @@ import { AirportData } from "../../types/types";
 import { findAllPaths } from "../../utils/connectionsGraph";
 import { airportIdToCode } from "../../utils/utils";
 import { Banner } from "../../components/Banner/Banner";
-import { FlightImage } from "../../components/FlightImage/FlightImage";
-import apiUrl from "../../utils/apiUrl";
+import { apiUrl } from "../../utils/apiUrl";
+import flightImage from "../../assets/images/FlightImage.svg";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import "./Search.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Center, Loader } from "@mantine/core";
+import {
+  Box, Button, Center, Group, Image, Loader, Overlay, Stack, Text, Title,
+} from "@mantine/core";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 export function Search() {
@@ -53,7 +55,6 @@ export function Search() {
 
     // sort by number of connections
     const allPathsSorted = [...allPaths].sort((a, b) => (a.length - b.length));
-
     const topSortedPathsById: number[][] = allPathsSorted.slice(0, minNumberOfSearchResults);
     const topSortedPathsByCode: string[][] = topSortedPathsById.map(
       (resultId) => resultId.map((id) => airportIdToCode(id, airports)),
@@ -65,47 +66,69 @@ export function Search() {
     <div>
       {airportFrom && airportTo
         ? (
-          <div>
-            <button className="backButton" type="button" onClick={handleBackButtonClick}>
-              <FontAwesomeIcon icon={faArrowLeftLong} color="white" />
-              Back
-            </button>
+          <Box>
+            <Box sx={{
+              position: "fixed", top: "40px", left: "40px", zIndex: 1,
+            }}
+            >
+              <Button variant="subtle" type="button" onClick={handleBackButtonClick}>
+                <Group spacing={8}>
+                  <FontAwesomeIcon icon={faArrowLeftLong} color="white" />
+                  <Text>
+                    Back
+                  </Text>
+                </Group>
+              </Button>
+            </Box>
 
-            <div className="background">
-              <div className="overlay" />
-              <img src={`${apiUrl()}${airportFrom.images.full}`} alt="Airport" />
-              <img src={airportTo.images.full} alt="Airport" />
-            </div>
+            <Box sx={{
+              position: "fixed", top: "0px", left: "0px", width: "100%", height: "100vh",
+            }}
+            >
+              <Group noWrap spacing={0}>
+                <Image src={`${apiUrl()}${airportFrom.images.large}`} height="100vh" />
+                <Image src={`${apiUrl()}${airportTo.images.large}`} height="100vh" />
+                <Overlay color="#000" opacity={0.30} />
+              </Group>
+            </Box>
 
-            <div className="content">
-              <div className="header">
+            <Stack>
 
-                <div className="airportDetails">
-                  <h2 style={{ height: "48px" }}>{airportFrom.country}</h2>
-                  <p style={{ height: "30px" }}>{airportFrom.name}</p>
-                </div>
+              <Group spacing={32} position="center" my={100} sx={{ zIndex: 1 }}>
+                <Stack>
+                  <Title order={2}>
+                    {airportFrom.country}
+                  </Title>
+                  <Text>
+                    {airportFrom.name}
+                  </Text>
+                </Stack>
+                <Box>
+                  <Image src={flightImage} maw={400} />
+                </Box>
+                <Stack>
+                  <Title order={2}>
+                    {airportTo.country}
+                  </Title>
+                  <Text>
+                    {airportTo.name}
+                  </Text>
+                </Stack>
+              </Group>
 
-                <div className="flightImage">
-                  <FlightImage />
-                </div>
+              <Box sx={{ zIndex: 1 }}>
+                {topSortedLayoversByCode.map((pathByCode) => (
+                  <Banner
+                    key={`${airportFrom.code}${airportTo.code}`}
+                    from={airportFrom.code}
+                    to={airportTo.code}
+                    layovers={pathByCode}
+                  />
+                ))}
+              </Box>
 
-                <div className="airportDetails">
-                  <h2 style={{ height: "48px" }}>{airportTo.country}</h2>
-                  <p style={{ height: "30px" }}>{airportTo.name}</p>
-                </div>
-
-              </div>
-              {topSortedLayoversByCode.map((pathByCode) => (
-                <Banner
-                  key={`${airportFrom.code}${airportTo.code}`}
-                  from={airportFrom.code}
-                  to={airportTo.code}
-                  layovers={pathByCode}
-                />
-              ))}
-
-            </div>
-          </div>
+            </Stack>
+          </Box>
         )
 
         : <Navigate to="/" />}

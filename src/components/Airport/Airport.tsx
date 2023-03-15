@@ -61,11 +61,11 @@ export const Airport = function ({ airportData }: Props) {
 
           <Stack align="stretch" spacing={16}>
             <Group position="apart">
-              <Text color="white">{airportData.country}</Text>
+              <Text>{airportData.country}</Text>
               <Rating rating={airportData.averageRating} />
             </Group>
 
-            <Text color="white" weight={700}>{airportData.name}</Text>
+            <Text weight={700}>{airportData.name}</Text>
           </Stack>
 
           <Stack align="stretch" spacing={16}>
@@ -73,7 +73,7 @@ export const Airport = function ({ airportData }: Props) {
               <Text color="gray">
                 Direct connections
               </Text>
-              <Text color="white">
+              <Text>
                 {myConnections().join(" | ")}
               </Text>
             </Stack>

@@ -26,12 +26,12 @@ export const theme: MantineThemeOverride = {
     fontFamily: "Open Sans, sans-serif",
     fontWeight: 700,
     sizes: {
-      h1: { fontSize: "42" },
-      h2: { fontSize: "32" },
-      h3: { fontSize: "28" },
-      h4: { fontSize: "24" },
-      h5: { fontSize: "18" },
-      h6: { fontSize: "16" },
+      h1: { fontSize: "42px" },
+      h2: { fontSize: "32px" },
+      h3: { fontSize: "28px" },
+      h4: { fontSize: "24px" },
+      h5: { fontSize: "18px" },
+      h6: { fontSize: "16px" },
     },
   },
   // This will be used as a default font family for all components. Change it to your liking.
@@ -48,6 +48,11 @@ export const theme: MantineThemeOverride = {
     Button: {
       defaultProps: {
         radius: "md",
+      },
+    },
+    Text: {
+      defaultProps: {
+        color: "white",
       },
     },
   },

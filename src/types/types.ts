@@ -9,7 +9,7 @@ export interface AirportData extends BaseAirport {
   country: string;
   images: {
     small: string;
-    full: string;
+    large: string;
   };
   averageRating: number;
 }
