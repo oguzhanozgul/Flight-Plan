@@ -65,15 +65,15 @@ export const Airport = function ({ airportData }: Props) {
               <Rating rating={airportData.averageRating} />
             </Group>
 
-            <Text weight={700}>{airportData.name}</Text>
+            <Text weight={700} ta="center">{airportData.name}</Text>
           </Stack>
 
           <Stack align="stretch" spacing={16}>
             <Stack spacing={8}>
-              <Text color="gray">
+              <Text color="gray" ta="center">
                 Direct connections
               </Text>
-              <Text>
+              <Text ta="center">
                 {myConnections().join(" | ")}
               </Text>
             </Stack>

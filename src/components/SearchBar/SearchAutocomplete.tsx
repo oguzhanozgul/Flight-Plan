@@ -95,7 +95,8 @@ export function SearchAutocomplete({ type }: SearchAutocompleteProps) {
 
   return (
     <Autocomplete
-      w="400px"
+      miw={320}
+      // w={400}
       icon={<FontAwesomeIcon icon={faLocationDot} color="#848CA2" />}
       rightSection={rightSection()}
       nothingFound="No results..."

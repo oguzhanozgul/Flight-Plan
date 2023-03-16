@@ -6,8 +6,6 @@ import { Search } from "./pages/search/Search";
 import { Container, MantineProvider } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
 
-import "./App.css";
-
 function App() {
   useAirportData();
   useConnectionsData();

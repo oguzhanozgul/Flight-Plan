@@ -22,7 +22,7 @@ export function AirportGrid() {
   }
 
   return (
-    <Flex wrap="wrap" gap={64} justify="center">
+    <Flex wrap="wrap" gap={48} justify="center">
       {airports.map((airport) => (<Airport key={airport.code} airportData={airport} />))}
     </Flex>
   );

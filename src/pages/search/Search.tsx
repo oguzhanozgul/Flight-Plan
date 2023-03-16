@@ -4,11 +4,10 @@ import { useAppSelector } from "../../store/hooks";
 import { AirportData } from "../../types/types";
 import { findAllPaths } from "../../utils/connectionsGraph";
 import { airportIdToCode } from "../../utils/utils";
-import { Banner } from "../../components/Banner/Banner";
+import { ConnectionBanner } from "../../components/ConnectionBanner/ConnectionBanner";
 import { apiUrl } from "../../utils/apiUrl";
 import flightImage from "../../assets/images/FlightImage.svg";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
-import "./Search.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box, Button, Center, Group, Image, Loader, Overlay, Stack, Text, Title,
@@ -43,8 +42,8 @@ export function Search() {
 
   let topSortedLayoversByCode: string[][] = [];
   if (airportFrom && airportTo) {
-    const minNumberOfSearchResults = 50; // give me at least this number of results
-    const maxConnectionLimit = 3; // but don't go higher than this number of connecting flights
+    const minNumberOfSearchResults = 25; // give me at least this number of results
+    const maxConnectionLimit = 4; // but don't go higher than this number of connecting flights
     const allPaths: number[][] = findAllPaths(
       connections,
       airportFrom.id,
@@ -95,22 +94,22 @@ export function Search() {
             <Stack>
 
               <Group spacing={32} position="center" my={100} sx={{ zIndex: 1 }}>
-                <Stack>
-                  <Title order={2}>
+                <Stack w={250}>
+                  <Title order={2} ta="center">
                     {airportFrom.country}
                   </Title>
-                  <Text>
+                  <Text ta="center">
                     {airportFrom.name}
                   </Text>
                 </Stack>
                 <Box>
                   <Image src={flightImage} maw={400} />
                 </Box>
-                <Stack>
-                  <Title order={2}>
+                <Stack w={250}>
+                  <Title order={2} ta="center">
                     {airportTo.country}
                   </Title>
-                  <Text>
+                  <Text ta="center">
                     {airportTo.name}
                   </Text>
                 </Stack>
@@ -118,7 +117,7 @@ export function Search() {
 
               <Box sx={{ zIndex: 1 }}>
                 {topSortedLayoversByCode.map((pathByCode) => (
-                  <Banner
+                  <ConnectionBanner
                     key={`${airportFrom.code}${airportTo.code}`}
                     from={airportFrom.code}
                     to={airportTo.code}
