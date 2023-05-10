@@ -24,8 +24,6 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/" element={<Home />} />
-          <Route path="/homy" element={<Homy />} />
-          <Route path="/homy/:id" element={<Homy />} />
           <Route path="/search" element={<Search />} />
           <Route path="/*" element={<Home />} />
         </Routes>
