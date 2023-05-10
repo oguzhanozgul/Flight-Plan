@@ -2,7 +2,6 @@ import { useConnectionsData } from "./utils/useConnectionsData";
 import { useAirportData } from "./utils/useAirportData";
 import { theme } from "./theme/theme";
 import { Home } from "./pages/home/Home";
-import { Homy } from "./pages/home/Homy";
 import { Search } from "./pages/search/Search";
 import { Container, MantineProvider } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
